@@ -1,6 +1,5 @@
 import dva from "dva";
 import { createBrowserHistory } from "history";
-console.log(require("routes").default)
 const app = dva({
   history: createBrowserHistory(),
 });

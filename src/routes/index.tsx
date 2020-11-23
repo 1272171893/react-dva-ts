@@ -6,7 +6,6 @@ import models from "routes/models";
 import { IProps } from "types/routers";
 const { ConnectedRouter } = routerRedux;
 const Routers = ({ history, app }: IProps) => {
-  console.log("history", history, models);
   return (
     <ConnectedRouter history={history}>
       <Switch>
