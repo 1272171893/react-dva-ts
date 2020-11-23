@@ -3,17 +3,27 @@ const {
   fixBabelImports,
   addLessLoader,
   addWebpackAlias,
+  addDecoratorsLegacy,
 } = require("customize-cra");
 const path = require("path");
 module.exports = override(
+  addDecoratorsLegacy(),
   fixBabelImports("import", {
     libraryName: "antd",
     libraryDirectory: "es",
-    style: 'css',
+    style: "css",
   }),
   addLessLoader({
     javascriptEnabled: true,
-    modifyVars: { "@primary-color": "#1DA57A" },
+    strictMath: true,
+    noIeCompat: true,
+    loader: "css-loader",
+    options: {
+      modules: {
+        localIdentName: "[name]__[local]___[hash:base64:5]",
+      },
+      sourceMap: true,
+    },
   }),
   addWebpackAlias({
     src: path.resolve(__dirname, "./src"),
