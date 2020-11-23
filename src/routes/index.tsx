@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Switch, Route, routerRedux } from "dva/router";
 import dynamic from "dva/dynamic";
-import models from "routers/models";
+import models from "routes/models";
 
 const { ConnectedRouter } = routerRedux;
 
 const Routers = ({ history, app }: any) => {
+  console.log('history',history,models)
   return (
     <ConnectedRouter history={history}>
       <Switch>

@@ -30,7 +30,7 @@ module.exports = override(
     assets: path.resolve(__dirname, "./src/assets"),
     components: path.resolve(__dirname, "./src/components"),
     pages: path.resolve(__dirname, "./src/pages"),
-    routers: path.resolve(__dirname, "./src/routers"),
+    routes: path.resolve(__dirname, "./src/routes"),
     server: path.resolve(__dirname, "./src/server"),
     stores: path.resolve(__dirname, "./src/stores"),
     types: path.resolve(__dirname, "./src/types"),
