@@ -1,7 +1,7 @@
 const routes = [
   {
     path: "/",
-    models: () => [import("stores/global")],
+    models: () => [import("stores/login")],
     component: () => import("pages"),
   },
 ];
