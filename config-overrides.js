@@ -35,5 +35,23 @@ module.exports = override(
     stores: path.resolve(__dirname, "./src/stores"),
     types: path.resolve(__dirname, "./src/types"),
     utils: path.resolve(__dirname, "./src/utils"),
-  })
+  }),
+  (config, env) => {
+    require("react-app-rewire-postcss")(config, {
+      plugins: (loader) => [
+        require("postcss-flexbugs-fixes"),
+        require("postcss-preset-env")({
+          autoprefixer: {
+            flexbox: "no-2009",
+          },
+          stage: 3,
+        }),
+        px2rem({
+          remUnit: 100,
+          exclude: /node_modules/i,
+        }),
+      ],
+    });
+    return config;
+  }
 );
