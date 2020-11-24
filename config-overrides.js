@@ -6,6 +6,8 @@ const {
   addDecoratorsLegacy,
 } = require("customize-cra");
 const path = require("path");
+const rewirepostcss = require("react-app-rewire-postcss");
+const px2rem = require("postcss-px2rem-exclude");
 module.exports = override(
   addDecoratorsLegacy(),
   fixBabelImports("import", {
@@ -37,7 +39,7 @@ module.exports = override(
     utils: path.resolve(__dirname, "./src/utils"),
   }),
   (config, env) => {
-    require("react-app-rewire-postcss")(config, {
+    rewirepostcss(config, {
       plugins: (loader) => [
         require("postcss-flexbugs-fixes"),
         require("postcss-preset-env")({
