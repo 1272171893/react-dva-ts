@@ -8,6 +8,13 @@ const {
 const path = require("path");
 const rewirepostcss = require("react-app-rewire-postcss");
 const px2rem = require("postcss-px2rem-exclude");
+const invade = (target, name, callback) => {
+  target.forEach((item) => {
+    if (item.constructor.name === name) {
+      callback(item);
+    }
+  });
+};
 module.exports = override(
   addDecoratorsLegacy(),
   fixBabelImports("import", {
@@ -54,6 +61,13 @@ module.exports = override(
         }),
       ],
     });
+    if (process.env.NODE_ENV === "production") {
+      config.devtool = false;
+      invade(config.optimization.minimizer, "TerserPlugin", (e) => {
+        e.options.extractComments = false;
+        e.options.terserOptions.compress.drop_console = true;
+      });
+    }
     return config;
   }
 );
