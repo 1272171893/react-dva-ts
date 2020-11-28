@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, Fragment } from "react";
+import React, { FC, ReactElement } from "react";
 import "components/layouts/less/HeaderLayout.less";
 import { connect } from "dva";
 import { Avatar, Dropdown, Menu } from "antd";
@@ -6,11 +6,10 @@ const { Item } = Menu;
 const HeaderLayout: FC<any> = (props) => {
   const { global: state } = props;
   console.log(props, state);
-  const menu: ReactElement = (
+  const options: ReactElement = (
     <Menu>
-      <Item key="1">1st menu item</Item>
-      <Item key="2">2nd memu item</Item>
-      <Item key="3">3rd menu item</Item>
+      <Item key="1">个人中心</Item>
+      <Item key="2">系统设置</Item>
     </Menu>
   );
   return (
@@ -22,11 +21,11 @@ const HeaderLayout: FC<any> = (props) => {
       <div className="header_main h100 flex_nowrap a_c flex1">2</div>
       <div className="header_right h100 flex_nowrap a_c">
         <div className="user_info flex1 pointer">
-          <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <Fragment>
+          <Dropdown overlay={options} placement="bottomCenter" arrow>
+            <div>
               <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
               <span className="user_name">超级管理员</span>
-            </Fragment>
+            </div>
           </Dropdown>
         </div>
         <div className="login_out pointer">
