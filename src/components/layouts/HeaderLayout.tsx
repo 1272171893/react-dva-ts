@@ -4,9 +4,7 @@ import { connect } from "dva";
 import { Avatar, Dropdown, Menu } from "antd";
 const { Item } = Menu;
 const HeaderLayout: FC<any> = (props) => {
-  const { global: state } = props;
-  const [current, setCurrent] = useState<string>("1");
-  console.log(props, state);
+  const { global: state, dispatch } = props;
   const options: ReactElement = (
     <Menu>
       <Item key="1">个人中心</Item>
@@ -14,7 +12,9 @@ const HeaderLayout: FC<any> = (props) => {
     </Menu>
   );
   const routerToPoint = (value: any) => {
-    setCurrent(value.key);
+    const type: string = "global/SETACTIVEMAINMENUE";
+    const payload: string = value.key;
+    dispatch({ type, payload });
   };
   return (
     <div className="header_box w100 absolute t_l_0 flex_nowrap j_b">
@@ -25,7 +25,7 @@ const HeaderLayout: FC<any> = (props) => {
       <div className="header_main h100 flex_nowrap a_c flex1">
         <Menu
           onClick={routerToPoint}
-          selectedKeys={[current]}
+          selectedKeys={[state.activeMainMenue]}
           mode="horizontal"
           className="menu_box"
         >
@@ -55,4 +55,4 @@ const HeaderLayout: FC<any> = (props) => {
     </div>
   );
 };
-export default connect(({ global }: any) => ({ global }))(HeaderLayout);
+export default connect((global: any) => global)(HeaderLayout);

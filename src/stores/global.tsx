@@ -1,4 +1,5 @@
 import { History } from "history";
+import { Ipayload } from "types/stores";
 type Isetup = {
   dispatch: any;
   history: History;
@@ -7,8 +8,14 @@ const state = {
   exclude: ["/", "/login"],
   logo: require("assets/images/bg/logo.jpg"),
   title: "智慧分享平台",
+  activeMainMenue: "2",
 };
-const reducers = {};
+const reducers = {
+  SETACTIVEMAINMENUE: (state: any, { payload }: Ipayload) => ({
+    ...state,
+    activeMainMenue: payload,
+  }),
+};
 const effects = {};
 const subscriptions = {
   setup({ dispatch, history }: Isetup) {
