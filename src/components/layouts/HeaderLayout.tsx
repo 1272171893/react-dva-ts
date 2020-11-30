@@ -1,8 +1,12 @@
-import React, { FC, useState, ReactElement } from "react";
+import React, { FC, useState, ReactElement, Fragment } from "react";
 import "components/layouts/less/HeaderLayout.less";
 import { connect } from "dva";
 import { Avatar, Dropdown, Menu } from "antd";
 const { Item } = Menu;
+interface IMenuItem {
+  code: string;
+  name: string;
+}
 const HeaderLayout: FC<any> = (props) => {
   const { global: state, dispatch } = props;
   const options: ReactElement = (
@@ -29,13 +33,11 @@ const HeaderLayout: FC<any> = (props) => {
           mode="horizontal"
           className="menu_box"
         >
-          <Item key="1">horizontal1</Item>
-          <Item key="2">horizontal2</Item>
-          <Item key="3">horizontal3</Item>
-          <Item key="4">horizontal4</Item>
-          <Item key="5">horizontal5</Item>
-          <Item key="6">horizontal6</Item>
-          <Item key="7">horizontal7</Item>
+          {state.mainMenu.map((item: IMenuItem, index: number) => (
+            <Fragment key={index}>
+              <Item key={item.code}>{item.name}</Item>
+            </Fragment>
+          ))}
         </Menu>
       </div>
       <div className="header_right h100 flex_nowrap a_c">
