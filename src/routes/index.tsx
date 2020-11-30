@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Switch, Route, routerRedux } from "dva/router";
 import dynamic from "dva/dynamic";
-import models from "routes/models";
+import models from "routes/models/exclude";
 import { IProps } from "types/routers";
 import HeaderLayout from "components/layouts/HeaderLayout";
 import SliderLayout from "components/layouts/SliderLayout";

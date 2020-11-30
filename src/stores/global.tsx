@@ -16,6 +16,8 @@ const state = {
     { code: "data_5", name: "数据展示5" },
   ],
   activeMainMenue: "data_1",
+  subMenue: [],
+  activeSubMenue: "/",
 };
 const reducers = {
   SETAMAINMENUE: (state: any, { payload }: Ipayload) => ({
