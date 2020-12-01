@@ -39,6 +39,7 @@ const SliderLayout: FC<Iprops> = (props) => {
             ></span>
             <span
               className={classnames({
+                sub_name:true,
                 sub_active_name: state.activeSubMenue === item.path,
               })}
             >
