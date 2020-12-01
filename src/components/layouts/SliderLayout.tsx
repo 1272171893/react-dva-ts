@@ -1,8 +1,27 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { connect } from "dva";
 import "components/layouts/less/SliderLayout.less";
-const SliderLayout: FC = (props) => {
-  console.log(props);
-  return <div className='slider_box absolute'>侧边部分</div>;
+import routesList from "routes/models/index";
+interface Iprops {
+  [key: string]: any;
+}
+const SliderLayout: FC<Iprops> = (props) => {
+  const { global: state } = props;
+  const [subList, setSubList] = useState<any[]>([]);
+  useEffect(() => {
+    const data = routesList[state.activeMainMenue] || [];
+    setSubList(data);
+  }, [state.activeMainMenue]);
+
+  console.log(111, props, routesList, subList);
+  return (
+    <div className="slider_box absolute">
+      <div className="wh100 overflow-y">
+        {new Array(100).fill(1).map((item: number, index: number) => (
+          <p key={index}>{index}</p>
+        ))}
+      </div>
+    </div>
+  );
 };
 export default connect(({ global }: any) => ({ global }))(SliderLayout);

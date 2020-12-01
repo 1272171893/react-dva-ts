@@ -1,4 +1,4 @@
-import React, { FC, useState, ReactElement, Fragment } from "react";
+import React, { FC, ReactElement, Fragment } from "react";
 import "components/layouts/less/HeaderLayout.less";
 import { connect } from "dva";
 import { Avatar, Dropdown, Menu } from "antd";
