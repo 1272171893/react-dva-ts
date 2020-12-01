@@ -14,6 +14,7 @@ const SliderLayout: FC<Iprops> = (props) => {
     dispatch({ type: "global/SETSUBMENUE", payload: data });
     dispatch({ type: "global/SETACTIVESUBMENUE", payload: subItemPath });
     history.push(subItemPath);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.activeMainMenue]);
 
   const goSubMenue = (item: any) => {
