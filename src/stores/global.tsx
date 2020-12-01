@@ -6,7 +6,7 @@ type Isetup = {
 };
 const state = {
   exclude: ["/", "/login"],
-  logo: require("assets/images/bg/logo.jpg"),
+  logo: require("assets/images/bg/logo.png"),
   title: "智慧分享平台",
   mainMenu: [
     { code: "data_1", name: "数据展示1" },
