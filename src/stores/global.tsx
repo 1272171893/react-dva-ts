@@ -41,7 +41,7 @@ const effects = {};
 const subscriptions = {
   setup({ dispatch, history }: Isetup) {
     history.listen((location, value) => {
-      const token: string = window.sessionStorage.getItem("token") || "";
+      const token: string = window.sessionStorage.getItem("token") || "11";
       const pathname: string = location.pathname || "";
       if (!state.exclude.includes(pathname) && token === "") {
         history.push("/login");

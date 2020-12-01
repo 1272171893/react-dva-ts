@@ -1,5 +1,6 @@
-import React, { FC, useState, useEffect, HTMLAttributes } from "react";
+import React, { FC, useEffect } from "react";
 import { connect } from "dva";
+import { routerRedux } from "dva/router";
 import "components/layouts/less/SliderLayout.less";
 import routesList from "routes/models/index";
 import classnames from "classnames";
@@ -13,13 +14,13 @@ const SliderLayout: FC<Iprops> = (props) => {
     const subItemPath: string = data.length === 0 ? "/404" : data[0].path;
     dispatch({ type: "global/SETSUBMENUE", payload: data });
     dispatch({ type: "global/SETACTIVESUBMENUE", payload: subItemPath });
-    history.push(subItemPath);
+    dispatch(routerRedux.push(subItemPath));
   }, [state.activeMainMenue]);
 
   const goSubMenue = (item: any) => {
     const subItemPath: string = item.path;
     dispatch({ type: "global/SETACTIVESUBMENUE", payload: subItemPath });
-    history.push(subItemPath);
+    dispatch(routerRedux.push(subItemPath));
   };
 
   return (
@@ -39,7 +40,7 @@ const SliderLayout: FC<Iprops> = (props) => {
             ></span>
             <span
               className={classnames({
-                sub_name:true,
+                sub_name: true,
                 sub_active_name: state.activeSubMenue === item.path,
               })}
             >
