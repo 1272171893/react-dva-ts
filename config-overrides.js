@@ -44,6 +44,7 @@ module.exports = override(
     stores: path.resolve(__dirname, "./src/stores"),
     types: path.resolve(__dirname, "./src/types"),
     utils: path.resolve(__dirname, "./src/utils"),
+    mocks: path.resolve(__dirname, "./src/mocks"),
   }),
   (config, env) => {
     rewirepostcss(config, {
