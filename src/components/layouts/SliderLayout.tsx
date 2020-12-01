@@ -16,6 +16,12 @@ const SliderLayout: FC<Iprops> = (props) => {
     history.push(subItemPath);
   }, [state.activeMainMenue]);
 
+  const goSubMenue = (item: any) => {
+    const subItemPath: string = item.path;
+    dispatch({ type: "global/SETACTIVESUBMENUE", payload: subItemPath });
+    history.push(subItemPath);
+  };
+
   return (
     <div className="slider_box absolute">
       <div className="wh100 overflow-y">
@@ -23,6 +29,7 @@ const SliderLayout: FC<Iprops> = (props) => {
           <div
             key={index}
             className="w100 column_nowrap j_a_c sub_item pointer"
+            onClick={() => goSubMenue(item)}
           >
             <span
               className={classnames(item.icon, {
