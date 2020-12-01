@@ -28,6 +28,14 @@ const reducers = {
     ...state,
     activeMainMenue: payload,
   }),
+  SETSUBMENUE: (state: any, { payload }: Ipayload) => ({
+    ...state,
+    subMenue: payload,
+  }),
+  SETACTIVESUBMENUE: (state: any, { payload }: Ipayload) => ({
+    ...state,
+    activeSubMenue: payload,
+  }),
 };
 const effects = {};
 const subscriptions = {

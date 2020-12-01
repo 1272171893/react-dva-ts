@@ -21,7 +21,7 @@ const Routers = ({ history, app }: IProps) => {
           ></Route>
         ))}
         <Fragment>
-          <div className='relative wh100 contain_bg'>
+          <div className="relative wh100 contain_bg">
             <HeaderLayout history={history} app={app} />
             <SliderLayout history={history} app={app} />
             <ContentLayout history={history} app={app} />

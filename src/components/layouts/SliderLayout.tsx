@@ -1,24 +1,43 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, HTMLAttributes } from "react";
 import { connect } from "dva";
 import "components/layouts/less/SliderLayout.less";
 import routesList from "routes/models/index";
+import classnames from "classnames";
 interface Iprops {
   [key: string]: any;
 }
 const SliderLayout: FC<Iprops> = (props) => {
-  const { global: state } = props;
-  const [subList, setSubList] = useState<any[]>([]);
+  const { global: state, dispatch, history } = props;
   useEffect(() => {
-    const data = routesList[state.activeMainMenue] || [];
-    setSubList(data);
+    const data: any[] = routesList[state.activeMainMenue] || [];
+    const subItemPath: string = data.length === 0 ? "/404" : data[0].path;
+    dispatch({ type: "global/SETSUBMENUE", payload: data });
+    dispatch({ type: "global/SETACTIVESUBMENUE", payload: subItemPath });
+    history.push(subItemPath);
   }, [state.activeMainMenue]);
 
-  console.log(111, props, routesList, subList);
   return (
     <div className="slider_box absolute">
       <div className="wh100 overflow-y">
-        {new Array(100).fill(1).map((item: number, index: number) => (
-          <p key={index}>{index}</p>
+        {state.subMenue.map((item: any, index: number) => (
+          <div
+            key={index}
+            className="w100 column_nowrap j_a_c sub_item pointer"
+          >
+            <span
+              className={classnames(item.icon, {
+                sub_icon: true,
+                sub_active: state.activeSubMenue === item.path,
+              })}
+            ></span>
+            <span
+              className={classnames({
+                sub_active_name: state.activeSubMenue === item.path,
+              })}
+            >
+              {item.name}
+            </span>
+          </div>
         ))}
       </div>
     </div>
