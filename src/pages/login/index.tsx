@@ -6,14 +6,27 @@ const { Header, Content, Footer } = Layout;
 const { Item } = Form;
 const Login: FC<any> = (props) => {
   const { login: state } = props;
-  console.log("props", props);
+  const getCaptcha = () => {
+    console.log("获取验证码");
+  };
+  const loginIng = (values: any) => {
+    console.log("正在登录", values);
+  };
+  const loginFailed = ({ values, errorFields, outOfDate }: any) => {
+    console.log("正在失败", values, errorFields, outOfDate);
+  };
   return (
     <div className="wh100 login_box relative background_contain">
       <div className="top_center login_from inline_block">
         <Layout className="login_from_box">
           <Header className="login_title t_c">{state.loginTitle}</Header>
           <Content className="login_content">
-            <Form name="basic" size="large">
+            <Form
+              name="basic"
+              size="large"
+              onFinish={loginIng}
+              onFinishFailed={loginFailed}
+            >
               <Item
                 name="username"
                 rules={[{ required: true, message: "请输入用户名!" }]}
@@ -41,8 +54,9 @@ const Login: FC<any> = (props) => {
                     <img
                       className="w100 pointer"
                       style={{ height: 40 }}
-                      src={require("assets/images/bg/logo.png")}
+                      src={state.captcha}
                       alt="验证码"
+                      onClick={getCaptcha}
                     />
                   </Col>
                 </Row>
