@@ -3,6 +3,7 @@ import { createBrowserHistory } from "history";
 import { setHtmlSize } from "assets/js/rem";
 import "assets/styles/normalize.less";
 import "assets/styles/common.less";
+import "assets/styles/custom.less";
 import "assets/iconfonts/iconfont.css";
 import "antd/dist/antd.css";
 setHtmlSize(window, document);
