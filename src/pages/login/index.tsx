@@ -9,10 +9,9 @@ const Login: FC<any> = (props) => {
   return (
     <div className="wh100 login_box relative background_contain">
       <div className="top_center login_from inline_block">
-        <Layout>
+        <Layout className='login_from_box'>
           <Header className='login_title t_c'>{state.loginTitle}</Header>
           <Content>Content</Content>
-          <Footer>Footer</Footer>
         </Layout>
       </div>
     </div>
