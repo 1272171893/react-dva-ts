@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import "pages/login/index.less";
-import { Layout, Form, Input, Button } from "antd";
+import { Layout, Form, Input, Button, Row, Col } from "antd";
 import { connect } from "dva";
 const { Header, Content, Footer } = Layout;
 const { Item } = Form;
@@ -28,9 +28,24 @@ const Login: FC<any> = (props) => {
                 <Input.Password />
               </Item>
               <Item>
-                <Button type="primary" block htmlType="submit">
-                  登录
-                </Button>
+                <Row gutter={8}>
+                  <Col span={14}>
+                    <Item
+                      name="captcha"
+                      rules={[{ required: true, message: "请输入验证码!" }]}
+                    >
+                      <Input />
+                    </Item>
+                  </Col>
+                  <Col span={10}>
+                    <img
+                      className="w100 pointer"
+                      style={{ height: 40 }}
+                      src={require("assets/images/bg/logo.png")}
+                      alt="验证码"
+                    />
+                  </Col>
+                </Row>
               </Item>
               <Item>
                 <Button type="primary" block htmlType="submit">
