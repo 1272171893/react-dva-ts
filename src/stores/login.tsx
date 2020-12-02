@@ -1,4 +1,6 @@
-const state = {};
+const state = {
+  loginTitle: "欢迎登录!",
+};
 const reducers = {};
 const effects = {};
 const subscriptions = {};

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "pages/index.less";
+import "pages/login/index.less";
 import { Layout } from "antd";
 const { Header, Footer, Sider, Content } = Layout;
 const App: FC = () => {
