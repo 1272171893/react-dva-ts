@@ -1,11 +1,17 @@
 @import "~assets/styles/variable.less";
 .login_box {
   background-image: url("~assets/images/bg/login.png");
-}
-.login_from {
-  width: 360px;
-  height: 420px;
-  background-color: @login_from_bg;
-  border-radius: 8px;
-  right: 12%;
+  .login_from {
+    width: 360px;
+    height: 420px;
+    background-color: @login_from_bg;
+    border-radius: 8px;
+    right: 12%;
+    .login_title {
+      padding-top: @paddind;
+      padding-bottom: calc(@paddind * 3 / 2);
+      letter-spacing: 10px;
+      font-size: @login_title_size;
+    }
+  }
 }
