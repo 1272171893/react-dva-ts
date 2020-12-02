@@ -3,18 +3,29 @@
   background-image: url("~assets/images/bg/login.png");
   .login_from {
     width: 360px;
-    height: 420px;
+    height: auto;
     background-color: @login_from_bg;
     border-radius: 8px;
     right: 12%;
     .login_from_box {
       border-radius: 8px;
       .login_title {
-        padding-top: @paddind;
-        padding-bottom: calc(@paddind * 3 / 2);
+        padding-top: calc(@paddind * 3 / 2);
+        padding-bottom: calc(@paddind * 2);
         letter-spacing: 10px;
         font-size: @login_title_size;
         color: @login_title_color;
+      }
+      .login_content {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: calc(@paddind * 2);
+        padding-right: calc(@paddind * 2);
+      }
+      .login_footer {
+        padding-top: @paddind;
+        padding-bottom: @paddind;
+        color: rgb(158, 154, 154);
       }
     }
   }

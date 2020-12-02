@@ -1,5 +1,6 @@
 const state = {
   loginTitle: "欢迎登录!",
+  loginFooter: "xxxxxxxxxxxxxx",
 };
 const reducers = {};
 const effects = {};
