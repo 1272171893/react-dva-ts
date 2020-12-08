@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import "pages/login/index.less";
 import { Layout, Form, Input, Button, Row, Col } from "antd";
 import { connect } from "dva";
+import { getLgoin } from "server/models/login";
 const { Header, Content, Footer } = Layout;
 const { Item } = Form;
 const Login: FC<any> = (props) => {
@@ -9,8 +10,9 @@ const Login: FC<any> = (props) => {
   const getCaptcha = () => {
     console.log("获取验证码");
   };
-  const loginIng = (values: any) => {
-    console.log("正在登录", values);
+  const loginIng = async(values: any) => {
+    const result = await getLgoin(values);
+    console.log("正在登录", result);
   };
   const loginFailed = ({ values, errorFields, outOfDate }: any) => {
     console.log("正在失败", values, errorFields, outOfDate);

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { IResponse, IContent } from "./index.d";
 const instance: AxiosInstance = axios.create({
-  baseURL: "https://some-domain.com/api/",
+  // baseURL: "https://some-domain.com/api/",
   timeout: 60000,
   headers: { "Content-Type": "application/json;charset=UTF-8" },
 });

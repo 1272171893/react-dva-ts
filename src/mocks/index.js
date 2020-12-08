@@ -4,8 +4,9 @@
 // });
 const express = require("express");
 const app = express();
-app.get("/user/login", (req, res) => {
-  res.send("hello world");
+app.post("/user/login", (req, res) => {
+  console.log("req", req);
+  res.send({ data: "hello world" });
 });
-console.log(1111)
+console.log(1111);
 app.listen(9000);
