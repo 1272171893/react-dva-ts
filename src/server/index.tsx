@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { IResponse, ContentType,Methods} from "./index.d";
+import { IResponse, IContent } from "./index.d";
 const instance: AxiosInstance = axios.create({
   baseURL: "https://some-domain.com/api/",
   timeout: 60000,
@@ -8,9 +8,14 @@ const instance: AxiosInstance = axios.create({
 
 instance.interceptors.request.use(
   (config: any) => {
-    const type: string = config.type || "json";
-    const token: string = sessionStorage.getItem("token") || "";
-    const ContentTypes: string = ContentType[type];
+    const [method, url, params, content, message] = config.data || [];
+    const contentType: string = IContent[content || "json"];
+    config.method = method.toLowerCase() || "get";
+    config.token = sessionStorage.getItem("token") || "";
+    config.url = url || "";
+    config.data = params || {};
+    config.headers = { ...config.headers, "Content-Type": contentType };
+    config.message = message || false;
     return config;
   },
   (error) => {
@@ -20,6 +25,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
+    console.log("response", response);
     return response;
   },
   (error) => {
