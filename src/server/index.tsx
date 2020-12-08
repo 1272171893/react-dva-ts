@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { IResponse, IContent } from "./index.d";
+// import qs from "qs";
 const instance: AxiosInstance = axios.create({
   // baseURL: "https://some-domain.com/api/",
   timeout: 60000,
@@ -13,9 +14,15 @@ instance.interceptors.request.use(
     config.method = method.toLowerCase() || "get";
     config.token = sessionStorage.getItem("token") || "";
     config.url = url || "";
-    config.data = params || {};
     config.headers = { ...config.headers, "Content-Type": contentType };
     config.message = message || false;
+    if(config.method === "get" ){
+     config.params = params || {};
+     return config;
+    }
+    config.data = params || {}
+    config.query = params || {}
+    console.log(config)
     return config;
   },
   (error) => {
