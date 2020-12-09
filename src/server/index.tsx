@@ -22,7 +22,6 @@ instance.interceptors.request.use(
     }
     config.data = params || {};
     config.query = params || {};
-    console.log(config);
     return config;
   },
   (error) => {
@@ -34,7 +33,6 @@ instance.interceptors.response.use(
   (response: AxiosResponse<IResponse>) => {
     const config: any = response.config || {};
     const data: IResponse | any = response.data || {};
-    console.log("response", data);
     if (response.status === 200) {
       if (config.message && data.code === 200) {
         message.success(data.message || "成功");

@@ -7,8 +7,7 @@ import { getLgoin } from "server/models/login";
 const { Header, Content, Footer } = Layout;
 const { Item } = Form;
 interface Idata {
-  userId: number | string;
-  userName: string;
+  userId:  string;
   token: string;
 }
 const Login: FC<any> = (props) => {
@@ -20,8 +19,8 @@ const Login: FC<any> = (props) => {
     const result: any = await getLgoin(values);
     if (result.code === 200) {
       const payload: Idata = result.data || {};
-      dispatch({ type: "global/SETUSEINFO", payload });
       sessionStorage.setItem("token", payload.token);
+      sessionStorage.setItem("userId", payload.userId);
       dispatch(routerRedux.push({ pathname: '/navigation/specific' })); 
     }
   };
