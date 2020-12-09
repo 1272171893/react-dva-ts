@@ -12,7 +12,7 @@ interface Idata {
   token: string;
 }
 const Login: FC<any> = (props) => {
-  const { login: state, global, dispatch } = props;
+  const { login: state, dispatch } = props;
   const getCaptcha = () => {
     console.log("获取验证码");
   };
@@ -107,4 +107,4 @@ const Login: FC<any> = (props) => {
     </div>
   );
 };
-export default connect(({ login, global }: any) => ({ login, global }))(Login);
+export default connect(({ login }: any) => ({ login }))(Login);
