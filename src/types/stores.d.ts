@@ -1,4 +1,4 @@
-export type Ipayload = {
+export type Ipayload<T = any> = {
   type: string;
-  payload: any;
+  payload: T;
 };
