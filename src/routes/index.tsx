@@ -15,7 +15,7 @@ const Routers = ({ history, app }: IProps) => {
         {models.map(({ path, ...dynamics }, key) => (
           <Route
             exact={true}
-            path="/"
+            path={path}
             key={key}
             component={(dynamic as any)({ app, ...dynamics })}
           ></Route>

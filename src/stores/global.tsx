@@ -7,7 +7,7 @@ type Isetup = {
 };
 
 const state = {
-  exclude: ["/", "/login"],
+  exclude: ["/", "/login", "/404"],
   logo: require("assets/images/bg/logo.png"),
   title: "智慧分享平台",
   useInfo: {},
@@ -40,7 +40,7 @@ const reducers = {
 };
 const effects = {
   *setSeting(payload: Ipayload, { put, call, select }: any) {
-    const { userId, history } = payload.payload;
+    const { userId } = payload.payload;
     const useInfo = yield select((state: any) => state.global.useInfo);
     const mainMenu = yield select((state: any) => state.global.mainMenu);
     if (Object.keys(useInfo).length === 0) {
@@ -52,7 +52,10 @@ const effects = {
     if (mainMenu.length === 0) {
       const result = yield call(getSetting, { userId });
       if (result.code === 200) {
-        yield put({ type: "SETAMAINMENUE", payload: result.data || [] });
+        const data = result.data || [];
+        const activeMainMenue = data.length === 0 ? "" : data[0].code;
+        yield put({ type: "SETAMAINMENUE", payload: data || [] });
+        yield put({ type: "SETACTIVEMAINMENUE", payload: activeMainMenue });
       }
     }
   },
@@ -68,7 +71,9 @@ const subscriptions = {
         history.push("/login");
         return;
       }
-      dispatch({ type: "setSeting", payload: { userId, history } });
+      if (pathname !== "/404") {
+        dispatch({ type: "setSeting", payload: { userId } });
+      }
     });
   },
 };

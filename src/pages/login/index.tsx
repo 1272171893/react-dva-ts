@@ -3,15 +3,16 @@ import "pages/login/index.less";
 import { Layout, Form, Input, Button, Row, Col } from "antd";
 import { connect } from "dva";
 import { routerRedux } from "dva/router";
-import { getLgoin } from "server/models/login";
+import { getLgoin, getUserInfo, getSetting } from "server/models/login";
+import routesList from "routes/models/index";
 const { Header, Content, Footer } = Layout;
 const { Item } = Form;
 interface Idata {
-  userId:  string;
+  userId: string;
   token: string;
 }
 const Login: FC<any> = (props) => {
-  const { login: state, dispatch } = props;
+  const { login: state, global, dispatch } = props;
   const getCaptcha = () => {
     console.log("获取验证码");
   };
@@ -19,9 +20,29 @@ const Login: FC<any> = (props) => {
     const result: any = await getLgoin(values);
     if (result.code === 200) {
       const payload: Idata = result.data || {};
-      sessionStorage.setItem("token", payload.token);
-      sessionStorage.setItem("userId", payload.userId);
-      dispatch(routerRedux.push({ pathname: '/navigation/specific' })); 
+      const { token, userId } = payload;
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("userId", userId);
+      const userInfo: any = await getUserInfo({ userId });
+      if (userInfo.code === 200) {
+        dispatch({ type: "global/SETUSEINFO", payload: userInfo.data });
+      }
+
+      const setting: any = await getSetting({ userId });
+      if (setting.code === 200) {
+        if (setting.data.length === 0) {
+          dispatch(routerRedux.push({ pathname: "/404" }));
+          return;
+        }
+        const activeMainMenue:string = setting.data[0].code||'';
+        const data: any[] = routesList[activeMainMenue] || [];
+        const subItemPath: string = data.length === 0 ? "/404" : data[0].path;
+        dispatch({ type: "global/SETAMAINMENUE", payload: setting.data });
+        dispatch({ type: "global/SETACTIVEMAINMENUE", payload: activeMainMenue });
+        dispatch({ type: "global/SETSUBMENUE", payload: data });
+        dispatch({ type: "global/SETACTIVESUBMENUE", payload: subItemPath });
+        dispatch(routerRedux.push({ pathname: subItemPath }));
+      }
     }
   };
   const loginFailed = ({ values, errorFields, outOfDate }: any) => {
@@ -86,4 +107,4 @@ const Login: FC<any> = (props) => {
     </div>
   );
 };
-export default connect(({ login }: any) => ({ login }))(Login);
+export default connect(({ login, global }: any) => ({ login, global }))(Login);
