@@ -5,6 +5,7 @@ type Isetup = {
   dispatch: any;
   history: History;
 };
+
 const state = {
   exclude: ["/", "/login"],
   logo: require("assets/images/bg/logo.png"),
@@ -44,17 +45,18 @@ const reducers = {
   }),
 };
 const effects = {
-  *setSeting({ payload }: any, { put, call, select }: any) {
+  *setSeting(payload: Ipayload, { put, call, select }: any) {
+    const { userId, history } = payload.payload;
     const useInfo = yield select((state: any) => state.global.useInfo);
     const mainMenu = yield select((state: any) => state.global.mainMenu);
     if (Object.keys(useInfo).length === 0) {
-      const result = yield call(getUserInfo, { userId: payload });
+      const result = yield call(getUserInfo, { userId });
       if (result.code === 200) {
         yield put({ type: "SETUSEINFO", payload: result.data || {} });
       }
     }
     if (mainMenu.length === 0) {
-      const result = yield call(getSetting, { userId: payload });
+      const result = yield call(getSetting, { userId });
       if (result.code === 200) {
         yield put({ type: "SETAMAINMENUE", payload: result.data || [] });
       }
@@ -72,7 +74,7 @@ const subscriptions = {
         history.push("/login");
         return;
       }
-      dispatch({ type: "setSeting", payload: userId });
+      dispatch({ type: "setSeting", payload: { userId, history } });
     });
   },
 };
