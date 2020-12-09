@@ -35,18 +35,19 @@ app.post("/user/userInfo", (req, res) => {
   res.send({ code: 0, data: {}, message: "获取用户信息失败" });
 });
 
-
 app.post("/user/setting", (req, res) => {
   const userId = req.body.userId || "";
   if (userId !== "") {
-    const data = {
-      userId: new Date().getTime(),
-      userName: "超级管理员",
-      token: new Date().getTime(),
-    };
+    const data = [
+      { code: "data_1", name: "数据展示1" },
+      { code: "data_2", name: "数据展示2" },
+      { code: "data_3", name: "数据展示3" },
+      { code: "data_4", name: "数据展示4" },
+      { code: "data_5", name: "数据展示5" },
+    ];
     res.send({ code: 200, data: data, message: "获取菜单列表成功" });
     return;
   }
-  res.send({ code: 0, data: {}, message: "获取菜单列表失败" });
+  res.send({ code: 0, data: [], message: "获取菜单列表失败" });
 });
 app.listen(9000);
