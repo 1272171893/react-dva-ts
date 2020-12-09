@@ -8,6 +8,7 @@ const state = {
   exclude: ["/", "/login"],
   logo: require("assets/images/bg/logo.png"),
   title: "智慧分享平台",
+  useInfo:{},
   mainMenu: [
     { code: "data_1", name: "数据展示1" },
     { code: "data_2", name: "数据展示2" },
@@ -36,12 +37,16 @@ const reducers = {
     ...state,
     activeSubMenue: payload,
   }),
+  SETUSEINFO: (state: any, { payload }: Ipayload) => ({
+    ...state,
+    useInfo: payload,
+  }),
 };
 const effects = {};
 const subscriptions = {
   setup({ dispatch, history }: Isetup) {
     history.listen((location, value) => {
-      const token: string = window.sessionStorage.getItem("token") || "11";
+      const token: string = window.sessionStorage.getItem("token") || "";
       const pathname: string = location.pathname || "";
       if (!state.exclude.includes(pathname) && token === "") {
         history.push("/login");

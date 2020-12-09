@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { IResponse, IContent } from "./index.d";
-// import qs from "qs";
+import { message } from "antd";
 const instance: AxiosInstance = axios.create({
   // baseURL: "https://some-domain.com/api/",
   timeout: 60000,
@@ -16,13 +16,13 @@ instance.interceptors.request.use(
     config.url = url || "";
     config.headers = { ...config.headers, "Content-Type": contentType };
     config.message = message || false;
-    if(config.method === "get" ){
-     config.params = params || {};
-     return config;
+    if (config.method === "get") {
+      config.params = params || {};
+      return config;
     }
-    config.data = params || {}
-    config.query = params || {}
-    console.log(config)
+    config.data = params || {};
+    config.query = params || {};
+    console.log(config);
     return config;
   },
   (error) => {
@@ -31,11 +31,21 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (response) => {
-    console.log("response", response);
-    const config = response.config||{};
-    
-    return response.data;
+  (response: AxiosResponse<IResponse>) => {
+    const config: any = response.config || {};
+    const data: IResponse | any = response.data || {};
+    console.log("response", data);
+    if (response.status === 200) {
+      if (config.message && data.code === 200) {
+        message.success(data.message || "成功");
+      }
+      if (config.message && data.code !== 200) {
+        message.error(data.message || "失败");
+      }
+      return data;
+    }
+    message.error("网络异常");
+    return Promise.reject(data);
   },
   (error) => {
     return Promise.reject(error);

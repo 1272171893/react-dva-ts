@@ -16,10 +16,10 @@ app.post("/user/login", (req, res) => {
       userName: "超级管理员",
       token: new Date().getTime(),
     };
-    res.send({ code: 200, data: data, meaasge: "登陆成功" });
+    res.send({ code: 200, data: data, message: "登陆成功" });
     return;
   }
-  res.send({ code: 0, data: null, meaasge: "登陆失败" });
+  res.send({ code: 0, data: null, message: "登陆失败" });
 });
 console.log(1111);
 app.listen(9000);

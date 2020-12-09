@@ -2,17 +2,28 @@ import React, { FC } from "react";
 import "pages/login/index.less";
 import { Layout, Form, Input, Button, Row, Col } from "antd";
 import { connect } from "dva";
+import { routerRedux } from "dva/router";
 import { getLgoin } from "server/models/login";
 const { Header, Content, Footer } = Layout;
 const { Item } = Form;
+interface Idata {
+  userId: number | string;
+  userName: string;
+  token: string;
+}
 const Login: FC<any> = (props) => {
-  const { login: state } = props;
+  const { login: state, dispatch } = props;
   const getCaptcha = () => {
     console.log("获取验证码");
   };
-  const loginIng = async(values: any) => {
-    const result = await getLgoin(values);
-    console.log("正在登录", result);
+  const loginIng = async (values: any) => {
+    const result: any = await getLgoin(values);
+    if (result.code === 200) {
+      const payload: Idata = result.data || {};
+      dispatch({ type: "global/SETUSEINFO", payload });
+      sessionStorage.setItem("token", payload.token);
+      dispatch(routerRedux.push({ pathname: '/navigation/specific' })); 
+    }
   };
   const loginFailed = ({ values, errorFields, outOfDate }: any) => {
     console.log("正在失败", values, errorFields, outOfDate);
