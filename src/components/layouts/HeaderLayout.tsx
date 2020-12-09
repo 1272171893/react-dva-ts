@@ -1,14 +1,15 @@
 import React, { FC, ReactElement, Fragment } from "react";
 import "components/layouts/less/HeaderLayout.less";
 import { connect } from "dva";
-import { Avatar, Dropdown, Menu } from "antd";
+import { Avatar, Dropdown, Menu, Modal } from "antd";
+import { getLoginOut } from "server/models/login";
 const { Item } = Menu;
 interface IMenuItem {
   code: string;
   name: string;
 }
 const HeaderLayout: FC<any> = (props) => {
-  const { global: state, dispatch } = props;
+  const { global: state, dispatch, history } = props;
   const options: ReactElement = (
     <Menu>
       <Item key="1">个人中心</Item>
@@ -19,6 +20,23 @@ const HeaderLayout: FC<any> = (props) => {
     const type: string = "global/SETACTIVEMAINMENUE";
     const payload: string = value.key;
     dispatch({ type, payload });
+  };
+  const loginOut = async () => {
+    const userId = sessionStorage.getItem("userId") || "";
+    const result: any = await getLoginOut({ userId });
+    if (result.code === 200) {
+      sessionStorage.clear();
+      history.push("/login");
+    }
+  };
+  const confirm = () => {
+    Modal.confirm({
+      title: "温馨提示",
+      content: "是否确定要退出该系统!",
+      okText: "确认",
+      cancelText: "取消",
+      onOk: loginOut,
+    });
   };
   return (
     <div className="header_box w100 absolute t_l_0 flex_nowrap j_b">
@@ -49,7 +67,7 @@ const HeaderLayout: FC<any> = (props) => {
             </div>
           </Dropdown>
         </div>
-        <div className="login_out pointer">
+        <div className="login_out pointer" onClick={confirm}>
           <span className="login_title">注销</span>
           <span className="iconxiajiantou" />
         </div>

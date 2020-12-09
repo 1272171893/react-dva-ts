@@ -10,3 +10,6 @@ export const getUserInfo = (params: any) =>
 //请求登陆接口
 export const getSetting = (params: any) =>
   server("post", "/user/setting", params, "json", true);
+//用户退出接口
+export const getLoginOut = (params: any) =>
+  server("post", "/user/LoginOut", params, "json", true);

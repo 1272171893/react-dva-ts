@@ -34,7 +34,7 @@ app.post("/user/userInfo", (req, res) => {
   }
   res.send({ code: 0, data: {}, message: "获取用户信息失败" });
 });
-
+//用户菜单接口
 app.post("/user/setting", (req, res) => {
   const userId = req.body.userId || "";
   if (userId !== "") {
@@ -49,5 +49,14 @@ app.post("/user/setting", (req, res) => {
     return;
   }
   res.send({ code: 0, data: [], message: "获取菜单列表失败" });
+});
+//用户退出接口
+app.post("/user/LoginOut", (req, res) => {
+  const userId = req.body.userId || "";
+  if (userId !== "") {
+    res.send({ code: 200, data: true, message: "退出登录成功" });
+    return;
+  }
+  res.send({ code: 0, data: false, message: "退出登录失败" });
 });
 app.listen(9000);
