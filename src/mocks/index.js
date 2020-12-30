@@ -39,7 +39,7 @@ app.post("/user/setting", (req, res) => {
   const userId = req.body.userId || "";
   if (userId !== "") {
     const data = [
-      { code: "data_1", name: "数据展示1" },
+      { code: "data_1", name: "前断性能优化" },
       { code: "data_2", name: "数据展示2" },
       { code: "data_3", name: "数据展示3" },
       { code: "data_4", name: "数据展示4" },
